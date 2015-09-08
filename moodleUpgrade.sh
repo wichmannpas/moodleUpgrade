@@ -36,7 +36,7 @@ sudo -u $webUser $phpPath $(echo $moodlePath)admin/cli/maintenance.php --enable
 rsync -r moodle/ $moodlePath
 
 # database upgrade
-sudo -u $webUser $phpPath $(echo $moodlePath)admin/cli/upgrade.php
+sudo -u $webUser $phpPath $(echo $moodlePath)admin/cli/upgrade.php --non-interactive
 
 # turn maintenance mode off
 sudo -u $webUser $phpPath $(echo $moodlePath)admin/cli/maintenance.php --disable
