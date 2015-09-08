@@ -6,10 +6,9 @@ moodlePath="/srv/http/moodle/" # change to fit path of you moodle installation
 webUser="www-data"
 phpPath="/usr/bin/php"
 
-if [ "$1" == "-h" ] || [ "$1" == "" ] || [ "$2" == "" ]; then
-  echo "Usage: moodleUpgrade.sh version branch"
+if [ "$1" == "-h" ] || [ "$1" == "" ]; then
+  echo "Usage: moodleUpgrade.sh version"
   echo " version: You need to specify the version which should be installed (i.e. 2.9.1)"
-  echo " branch: You need to specify the branch of the version (i.e. 29)"
   echo "Script written by Pascal Wichmann, Copyright (c) 2015"
   exit 0
 fi
@@ -19,6 +18,10 @@ if [ -d "/tmp/moodleUpgrade" ]; then
   echo "Temporary directory /tmp/moodleUpgrade is already existing. Remove it  and start the script again, but first make sure that there is NO OTHER INSTANCE of this script running."
   exit 0
 fi
+
+# genereate branch out of version
+branch=$(echo $1 | cut -c1-1)$(echo $1 | cut -c3-3)
+echo $branch
 
 echo "starting moodle upgrade"
 
