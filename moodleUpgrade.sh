@@ -21,7 +21,6 @@ fi
 
 # genereate branch out of version
 branch=$(echo $1 | cut -c1-1)$(echo $1 | cut -c3-3)
-echo $branch
 
 echo "starting moodle upgrade"
 
@@ -30,7 +29,7 @@ mkdir /tmp/moodleUpgrade
 cd /tmp/moodleUpgrade
 
 # download moodle archive and extraxt it
-curl https://download.moodle.org/download.php/direct/stable$(echo $2)/moodle-$(echo $1).tgz | tar xz
+curl https://download.moodle.org/download.php/direct/stable$(echo $branch)/moodle-$(echo $1).tgz | tar xz
 
 # turn moodle maintenance mode on
 sudo -u $webUser $phpPath $(echo $moodlePath)admin/cli/maintenance.php --enable
