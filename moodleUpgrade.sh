@@ -28,7 +28,7 @@ echo "starting moodle upgrade"
 mkdir /tmp/moodleUpgrade
 cd /tmp/moodleUpgrade
 
-# download moodle archive and extraxt it
+# download moodle archive and extract it
 curl https://download.moodle.org/download.php/direct/stable$(echo $branch)/moodle-$(echo $1).tgz | tar xz
 
 # turn moodle maintenance mode on
