@@ -11,6 +11,7 @@ Requirements
   * curl
   * sudo
   * rsync
+  * tr
 
 Usage
 -----
