@@ -2,8 +2,8 @@
 # This script automatically upgrades a moodle installation and creates a backup of all important data before doing so
 # Copyright (c) 2015 Pascal Wichmann
 
-moodlePath="/srv/http/moodle/" # change to fit path of you moodle installation
-moodleDataPath="/srv/moodledata/" # change to fit path of your moodledata directory
+moodlePath="/srv/http/moodle" # change to fit path of you moodle installation
+moodleDataPath="/srv/moodledata" # change to fit path of your moodledata directory
 backupDir="/backup" # change to fit path where your backup should be placed
 backupVersions=5
 mysqlBackup=false  # to enable mysql backup, your user needs to have a valid mysql client configuration (i.e. .my.cnf) in order to authenticate; it may be possible to authenticate interactively, however, the easiest way is to configure the mysql client correctly
@@ -48,7 +48,7 @@ do
 done
 
 # create directories for newest backup (and parents if backupDir does not exist yet)
-mkdir -p ${backupDir}/backup.0/files
+mkdir -p ${backupDir}/backup.0
 
 # create backup of database (if enabled)
 if [ $mysqlBackup = true ]; then
