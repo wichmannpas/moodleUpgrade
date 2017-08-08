@@ -9,6 +9,7 @@ backupVersions=5
 mysqlBackup=false  # to enable mysql backup, your user needs to have a valid mysql client configuration (i.e. .my.cnf) in order to authenticate; it may be possible to authenticate interactively, however, the easiest way is to configure the mysql client correctly
 mysqlBackup_database="moodle"
 webUser="www-data"
+webGroup="www-data"
 phpPath="/usr/bin/php"
 
 if [ "$1" == "-h" ] || [ "$1" == "" ]; then
@@ -78,6 +79,9 @@ mv moodle/ $moodlePath
 
 # copy configuration
 cp ${backupDir}/backup.0/files/config.php $moodlePath/config.php
+
+# set appropriate ownerships
+chown -R $webUser:$webGroup $moodlePath
 
 # database upgrade
 sudo -u $webUser $phpPath $(echo $moodlePath)admin/cli/upgrade.php --non-interactive
