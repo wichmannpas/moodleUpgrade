@@ -69,13 +69,13 @@ cd /tmp/moodleUpgrade
 curl https://download.moodle.org/download.php/direct/stable$(echo $branch)/moodle-$(echo $1).tgz | tar xz
 
 # turn moodle maintenance mode on
-sudo -u $webUser $phpPath $(echo $moodlePath)admin/cli/maintenance.php --enable
+sudo -u $webUser $phpPath $(echo $moodlePath)/admin/cli/maintenance.php --enable
 
 # move old moodle install directory to backup path
 mv ${moodlePath} ${backupDir}/backup.0/files
 
 # move new files
-mv moodle/ $moodlePath
+mv moodle $moodlePath
 
 # copy configuration
 cp ${backupDir}/backup.0/files/config.php $moodlePath/config.php
@@ -84,10 +84,10 @@ cp ${backupDir}/backup.0/files/config.php $moodlePath/config.php
 chown -R $webUser:$webGroup $moodlePath
 
 # database upgrade
-sudo -u $webUser $phpPath $(echo $moodlePath)admin/cli/upgrade.php --non-interactive
+sudo -u $webUser $phpPath $(echo $moodlePath)/admin/cli/upgrade.php --non-interactive
 
 # turn maintenance mode off
-sudo -u $webUser $phpPath $(echo $moodlePath)admin/cli/maintenance.php --disable
+sudo -u $webUser $phpPath $(echo $moodlePath)/admin/cli/maintenance.php --disable
 
 # remove temporary moodle upgrade directory
 rm -rf /tmp/moodleUpgrade
