@@ -49,9 +49,6 @@ done
 # create directories for newest backup (and parents if backupDir does not exist yet)
 mkdir -p ${backupDir}/backup.0/files
 
-# create backup of files
-rsync -a ${moodlePath} ${backupDir}/backup.0/files
-
 # create backup of database (if enabled)
 if [ $mysqlBackup = true ]; then
   mysqldump --databases ${mysqlBackup_database} > ${backupDir}/backup.0/db.sql
@@ -73,8 +70,14 @@ curl https://download.moodle.org/download.php/direct/stable$(echo $branch)/moodl
 # turn moodle maintenance mode on
 sudo -u $webUser $phpPath $(echo $moodlePath)admin/cli/maintenance.php --enable
 
+# move old moodle install directory to backup path
+mv ${moodlePath} ${backupDir}/backup.0/files
+
 # move new files
-rsync -a moodle/ $moodlePath
+mv moodle/ $moodlePath
+
+# copy configuration
+cp ${backupDir}/backup.0/files/config.php $moodlePath/config.php
 
 # database upgrade
 sudo -u $webUser $phpPath $(echo $moodlePath)admin/cli/upgrade.php --non-interactive

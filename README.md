@@ -10,7 +10,6 @@ Requirements
   * cut
   * curl
   * sudo
-  * rsync
   * tr
 
 Usage
