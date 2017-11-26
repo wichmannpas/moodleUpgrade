@@ -11,6 +11,8 @@ mysqlBackup_database="moodle"
 webUser="www-data"
 webGroup="www-data"
 phpPath="/usr/bin/php"
+pluginPaths=()  # plugins to copy after update, example see next line
+# pluginPaths=("/blocks/mrbs" "/mod/attendance")
 
 if [ "$1" == "-h" ] || [ "$1" == "" ]; then
   echo "Usage: moodleUpgrade.sh version"
@@ -79,6 +81,12 @@ mv moodle $moodlePath
 
 # copy configuration
 cp ${backupDir}/backup.0/files/config.php $moodlePath/config.php
+
+# copy plugins
+for pluginPath in ${pluginPaths[@]}
+do
+  cp -r ${backupDir}/backup.0/files$pluginPath $moodlePath$pluginPath
+done
 
 # set appropriate ownerships
 chown -R $webUser:$webGroup $moodlePath
